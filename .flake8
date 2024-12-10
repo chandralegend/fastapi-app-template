@@ -1,0 +1,5 @@
+[flake8]
+exclude = build, dist, app/tests/*
+plugins = flake8_import_order, flake8_docstrings, flake8_comprehensions, flake8_bugbear, flake8_annotations, pep8_naming, flake8_simplify
+max-line-length = 120
+ignore = B008, N815
