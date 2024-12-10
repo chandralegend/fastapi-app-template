@@ -1,6 +1,6 @@
-# TalentZap Resume Parser API
+#  FastAPI Server Template
 
-This is a FastAPI application for parsing resumes and providing structured data.
+This is a FastAPI application template that can be used to quickly create a new FastAPI application.
 
 ## Running the Application
 
