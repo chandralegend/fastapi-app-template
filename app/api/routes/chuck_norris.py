@@ -10,7 +10,8 @@ from app.schemas.chuck_norris_jokes import (
 )
 from app.utils.auth import verify_api_key
 
-from fastapi import APIRouter, HTTPException, Header
+from fastapi import APIRouter, Depends, HTTPException
+from fastapi.security.api_key import APIKey
 
 router = APIRouter()
 
@@ -18,10 +19,9 @@ router = APIRouter()
 @router.post("/random_joke")
 async def random_joke(
     random_joke_request: Optional[RandomJokeRequest] = None,
-    api_key: str = Header(..., alias="x-api-key"),
+    api_key: APIKey = Depends(verify_api_key),
 ) -> RandomJokeResponse:
     """Get a random joke."""
-    await verify_api_key(api_key)
     try:
         joke = (
             get_random_joke(random_joke_request.category)
@@ -35,10 +35,9 @@ async def random_joke(
 
 @router.get("/joke_categories")
 async def joke_categories(
-    api_key: str = Header(..., alias="x-api-key"),
+    api_key: APIKey = Depends(verify_api_key),
 ) -> JokeCategoriesResponse:
     """Get joke categories."""
-    await verify_api_key(api_key)
     try:
         categories = get_joke_categories()
         return JokeCategoriesResponse(categories=categories)

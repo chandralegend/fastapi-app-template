@@ -1,9 +1,8 @@
 """Main module to run the FastAPI application."""
 
 from app.api.routes import chuck_norris
-from app.utils.auth import verify_api_key
 
-from fastapi import FastAPI, Header
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(
@@ -23,7 +22,6 @@ app.include_router(chuck_norris.router)
 
 
 @app.get("/")
-async def read_root(api_key: str = Header(..., alias="x-api-key")) -> dict:
-    """Health check endpoint."""
-    await verify_api_key(api_key)
+async def read_root() -> dict:
+    """Health check."""
     return {"Status": "OK"}
